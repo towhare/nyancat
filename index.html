@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nyannyannyan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            font-size: 100px;
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        /*初始化margin和padding以便于不同浏览器兼容*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media only screen and (max-device-width: 319px) {
+            html {
+                font-size: 45px;
+            }
+        }
+
+        @media only screen and ( min-device-width: 320px ) and ( max-device-width: 359px ) {
+            html {
+                font-size: 50px;
+            }
+        }
+
+        @media only screen and ( min-device-width: 360px ) and (max-device-width: 374px ) {
+            html {
+                font-size: 56.25px;
+            }
+        }
+
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+            html {
+                font-size: 58.6px;
+            }
+        }
+
+        @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+            html {
+                font-size: 64.68px;
+            }
+        }
+    </style>
+    <script>
+        /*自适应计算rem在加载的时候计算 这个在窗口大小变化很快的时候比较消耗性能，可以考虑去掉 但是那样就不是自适应的方式了*/
+        function windowinitResize(viewPortWidth) {//输入设计稿基准宽度
+            var windowWidth = window.innerWidth
+            var bili = (windowWidth / viewPortWidth) * 100
+            if (bili > 100) bili = 100
+            var styleEl = document.createElement("style")
+            styleEl.id = "nyan"
+            styleEl.innerHTML = "html{font-size:" + bili + "px;}"
+            document.head.appendChild(styleEl)
+        }
+
+        /*改变页面大小的时候使用的函数*/
+        function windowResize(viewPortWidth) {
+            var windowWidth = window.innerWidth
+            var bili = (windowWidth / viewPortWidth) * 100
+            if (bili > 100) bili = 100
+            var StyleElement = document.getElementById('nyan')
+            if (StyleElement) {
+                StyleElement.innerHTML = "html{font-size:" + bili + "px;}"
+            }
+        }
+
+        try {
+            windowinitResize(640)
+            window.onresize = function () {
+                windowResize(640)
+            }
+        } catch (e) {
+            console.log("自适应页面错误原因是:" + e)
+        }
+    </script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <canvas id="cat" width="512" height="512" style="display:none;"></canvas>
+    <!--<canvas id="rainbow" width="512" height="512" style="position:absolute;top:0;left:0;z-index:1;"></canvas>-->
+    <canvas id="stage"></canvas>
+    <button onclick="changeCat()" id="changeCat">change</button>
+    <!--<audio src="media/vday.ogg" id="music" autoplay="autoplay" loop="loop"></audio>-->
+    <!--<script src="js/three.min.js"></script>-->
+    <script src="js/Visualizer.js"></script>
+	<script src="http://towrabbit.oss-cn-beijing.aliyuncs.com/js/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
